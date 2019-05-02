@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error Catcher Custom Esli</title>
+</head>
+<body ng-app="customErrorCatcher" ng-controller="testCtrl">
+
+    <div>
+        <button ng-click="getItems()">Get Items</button>
+        <table border="1">
+            <tr ng-repeat="item in items">
+                <td>{{item.title}}</td>
+                <td>{{item.userId}}</td>
+                <td>{{item.id}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <form ng-submit="postThis()" role="form" enctype="multipart/form-data">
+            <label>Title</label>
+            <input type="text" ng-model="formData.title" name="title" id="title">
+            <label>UserId</label>
+            <input type="number" ng-model="formData.userId" name="userId" id="userId">
+            <label>Body</label>
+            <textarea ng-model="formData.body" name="body" id="body"></textarea>
+            <br>
+            <button type="submit">Post</button>
+        </form>
+    </div>
+
+<script src="node_modules/angular/angular.min.js"></script>
+<script src="scripts/app.js"></script>
+
+    <script>
+
+        app.controller('testCtrl', function($scope, $http) {
+
+            $scope.getItems = function () {
+                $http.get('https://jsonplaceholder.typicode.com/todos').then(function (response) {
+                    console.log(response)
+                    $scope.items = responsssse.data
+                })
+            };
+
+            $scope.postThis = function () {
+
+                var formData = new FormData;
+
+                formData.append('title', $scope.formData.title);
+                formData.append('userId', $scope.formData.userId);
+                formData.append('body', $scope.formData.body);
+
+                console.log('my FormData', $scope.formData.title)
+                console.log('my FormData', $scope.formData.userId)
+                console.log('my FormData', $scope.formData.body)
+
+                $http.post('https://jsonplaceholder.typicode.com/posts', formData,{
+                    headers:{
+                        'Content-Type': undefined,
+                        processData: false
+                    }
+
+                }).then(response => response.json())
+                    .then(json => console.log(json))
+
+            }
+        });
+
+    </script>
+</body>
+</html>
