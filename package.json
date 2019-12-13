@@ -9,7 +9,7 @@
   "author": "Esli Agolli",
   "license": "ISC",
   "dependencies": {
-    "angular": "^1.7.8",
+    "angular": "^1.7.9",
     "angular-material": "^1.1.18",
     "mdi": "^2.2.43"
   }
